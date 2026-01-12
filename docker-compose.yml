@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  simple-browser:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: simple-browser
+    ports:
+      - "6080:6080"  # noVNC Web界面端口
+    environment:
+      - DISPLAY=:99
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw  # 如果需要访问主机X11
+    restart: unless-stopped
+    shm_size: '2gb'  # 为浏览器分配更多共享内存
